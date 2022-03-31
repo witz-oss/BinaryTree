@@ -1,22 +1,28 @@
 #include "../Header/BinTree.h"
+#include <iostream>
 
-BinTree::BinTree()
+template<typename T>
+BinTree<T>::BinTree()
 {
     root = new Node{};
     sz = 0;
 }
 
-BinTree::BinTree(Node* node)
+template<typename T>
+BinTree<T>::BinTree(typename BinTree<T>::Node* node)
 {
-    root = node;
+    root = std::move(node);
     sz++;
 }
 
-BinTree::~BinTree()
+template<typename T>
+BinTree<T>::~BinTree()
 {
     Delete(root);
 }
-void BinTree::Delete(Node* nodeTMP)
+
+template<typename T>
+void BinTree<T>::Delete(typename BinTree<T>::Node* nodeTMP)
 {
     if (nodeTMP == nullptr)
         return;
@@ -26,24 +32,27 @@ void BinTree::Delete(Node* nodeTMP)
     delete nodeTMP;
 }
 
-int BinTree::size() const
+template<typename T>
+int BinTree<T>::size() const
 {
     return sz;
 }
 
-typename BinTree::Node* BinTree::wurzel() const
+template<typename T>
+typename BinTree<T>::Node* BinTree<T>::wurzel() const
 {
     return root;
 }
 
-typename BinTree::Node* BinTree::find(const char& val) const
+template<typename T>
+typename BinTree<T>::Node* BinTree<T>::find(const char& val) const
 {
-    BinTree::Node* tmpNode{root};
+    typename BinTree::Node* tmpNode = std::move(root);
     while(tmpNode != nullptr) {
         if (tmpNode->value < val)
-            tmpNode = tmpNode->right;
+            tmpNode = std::move(tmpNode->right);
         else if (tmpNode->value > val)
-            tmpNode = tmpNode->left;
+            tmpNode = std::move(tmpNode->left);
         else
             return tmpNode;
     }
@@ -51,7 +60,8 @@ typename BinTree::Node* BinTree::find(const char& val) const
     return nullptr;
 }
 
-typename BinTree::Node* BinTree::insert(const char& val)
+template<typename T>
+typename BinTree<T>::Node* BinTree<T>::insert(const T& val)
 {
     if (root->value == NULL)
     {
@@ -61,7 +71,7 @@ typename BinTree::Node* BinTree::insert(const char& val)
         return root;
     }
 
-    Node* nodeTMP{ this->root };
+    typename BinTree<T>::Node* nodeTMP{ this->root };
     while(true) {
         if (nodeTMP->value == val) {
             nodeTMP->count++;
@@ -89,17 +99,21 @@ typename BinTree::Node* BinTree::insert(const char& val)
     }
 }
 
-typename BinTree::Node* BinTree::insertKnotenWurzel(const char& val)
+template<typename T>
+typename BinTree<T>::Node* BinTree<T>::insertKnotenWurzel(const T& val)
 {
 
 }
 
-void BinTree::inOrder()const
+template<typename T>
+void BinTree<T>::inOrder()const
 {
-    Node* node{ this->root };
+    typename BinTree<T>::Node* node{ this->root };
     inOrder(node);
 }
-void BinTree::inOrder(const Node* nodeTMP)const
+
+template<typename T>
+void BinTree<T>::inOrder(const typename BinTree<T>::Node* nodeTMP)const
 {
     if (nodeTMP == nullptr)
         return;
@@ -109,7 +123,8 @@ void BinTree::inOrder(const Node* nodeTMP)const
     inOrder(nodeTMP->right);
 }
 
-int BinTree::heightTree(const Node* nodeTMP)const
+template<typename T>
+int BinTree<T>::heightTree(const typename BinTree<T>::Node* nodeTMP)const
 {
     if (nodeTMP == 0)
         return 0;
@@ -130,18 +145,23 @@ int BinTree::heightTree(const Node* nodeTMP)const
     return max + 1;
 }
 
-void BinTree::levelOrder()const
+template<typename T>
+void BinTree<T>::levelOrder()const
 {
-    Node* node{ this->root };
+    typename BinTree<T>::Node* node{ this->root };
     levelOrder(node);
 }
-void BinTree::levelOrder(const Node* nodeTMP)const
+
+template<typename T>
+void BinTree<T>::levelOrder(const typename BinTree<T>::Node* nodeTMP)const
 {
     int level = this->heightTree(nodeTMP);
     for (int i{0}; i <= level; i++)
         levelOrder(nodeTMP, i);
 }
-void BinTree::levelOrder(const Node* nodeTMP, int level)const
+
+template<typename T>
+void BinTree<T>::levelOrder(const typename BinTree<T>::Node* nodeTMP, int level)const
 {
     if (nodeTMP == NULL)
         return;
@@ -157,7 +177,8 @@ void BinTree::levelOrder(const Node* nodeTMP, int level)const
     }
 }
 
-int BinTree::AnzahlKnoten(Node* nodeTMP) const
+template<typename T>
+int BinTree<T>::AnzahlKnoten(typename BinTree<T>::Node* nodeTMP) const
 {
     if (nodeTMP == nullptr)
         return 0;

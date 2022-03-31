@@ -2,51 +2,53 @@
 #define BINARYTREE_BINTREE_H
 #include <iostream>
 
+template<typename T>
 class BinTree
 {
 public:
     struct Node
     {
-        char	value;
+        T	    value;
         int		count;
         Node*	top;
         Node*	left;
         Node*	right;
         Node() :
-                value{ NULL }, count{ 0 }, top{ nullptr }, left{ nullptr }, right{ nullptr }
+                value{ T(NULL) }, count{ 0 }, top{ nullptr }, left{ nullptr }, right{ nullptr }
         {}
         explicit Node(Node* other) :
-                value{ other->value }, count{ other->count }, top{ other->top }, left{ other->left }, right{ other->right }
+                value{ std::move(other->value) }, count{ std::move(other->count) }, top{ std::move(other->top) }, left{std::move(other->left) }, right{ std::move(other->right) }
         {}
-        explicit Node(char ch) :		//, Node* t = nullptr
-                value{ ch }, count{ 1 }, top{ nullptr }, left{ nullptr }, right{ nullptr }
+        explicit Node(T ch) :
+                value{ std::move(ch) }, count{ 1 }, top{ nullptr }, left{ nullptr }, right{ nullptr }
         {}
     };
     BinTree();
-    BinTree(Node*);
+    explicit BinTree(typename BinTree<T>::Node*);
     ~BinTree();
-    void Delete(Node*);
+    void Delete(typename BinTree<T>::Node*);
 
     [[nodiscard]] int size()const;
-    [[nodiscard]] Node* wurzel()const;
-    [[nodiscard]] Node* find(const char&)const;
+    [[nodiscard]] typename BinTree<T>::Node* wurzel()const;
+    [[nodiscard]] typename BinTree<T>::Node* find(const char&)const;
 
-    Node* insert(const char&);
-    Node* insertKnotenWurzel(const char&);
+    typename BinTree<T>::Node* insert(const T&);
+    typename BinTree<T>::Node* insertKnotenWurzel(const T&);
 
     void inOrder()const;
-    void inOrder(const Node*)const;
+    void inOrder(const typename BinTree<T>::Node*)const;
 
-    [[nodiscard]] int heightTree(const Node*)const;
+    [[nodiscard]] int heightTree(const typename BinTree<T>::Node*)const;
     void levelOrder()const;
-    void levelOrder(const Node*)const;
-    void levelOrder(const Node*, int)const;
+    void levelOrder(const typename BinTree<T>::Node*)const;
+    void levelOrder(const typename BinTree<T>::Node*, int)const;
 
-    [[nodiscard]] int AnzahlKnoten(Node*)const;
+    [[nodiscard]] int AnzahlKnoten(typename BinTree<T>::Node*)const;
 private:
-    Node* root;
+    typename BinTree<T>::Node* root;
     int sz{};
 };
 
+#include "../Source/BinTree.tpp"
 
 #endif //BINARYTREE_BINTREE_H

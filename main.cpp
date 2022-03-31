@@ -1,19 +1,17 @@
 #include "Header/BinTree.h"
+#include "Header/Test.h"
+#include <vector>
 
 int main()try
 {
-    BinTree binTree1{ };
-    BinTree binTree2{ };
+    std::vector<int> vectorTMP { 3, 0, 1, 8, 9, 6, 4, 7, 5, 2 };
+    BinTree<int> binTree1{ };
+    BinTree<int> binTree2{ };
 
-    std::string str = "34554797861342";
-
-    for (const auto& item : str)
+    for (const auto& item : vectorTMP)
         binTree1.insert(item);
 
-    std::cout << "node = binTree1.find('2'): exped 2: ";
-    char tmp = binTree1.find('2')->value;
-    if (binTree1.find('2'))
-        std::cout << tmp << '\n';
+    check<int>(1, binTree1.find(1)->value, "Find '1' in Tree");
 
     std::cout << "binTree1.inOrder(): " << '\n';
     binTree1.inOrder();
@@ -26,7 +24,7 @@ int main()try
     std::cout << '\n' << "anzahl recht: " << binTree1.AnzahlKnoten(binTree1.wurzel()->right);
     std::cout << '\n' << "anzahl left: " << binTree1.AnzahlKnoten(binTree1.wurzel()->left);
 
-    for (const auto& item : str)
+    for (const auto& item : vectorTMP)
         binTree2.insertKnotenWurzel(item);
 
     std::cout << "\nbinTree2.inOrder(): " << '\n';
