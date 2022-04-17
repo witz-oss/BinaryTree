@@ -39,7 +39,7 @@ int BinTree<T>::size() const
 }
 
 template<typename T>
-typename BinTree<T>::Node* BinTree<T>::wurzel() const
+typename BinTree<T>::Node* BinTree<T>::getRoot() const
 {
     return root;
 }
@@ -97,12 +97,6 @@ typename BinTree<T>::Node* BinTree<T>::insert(const T& val)
             nodeTMP = nodeTMP->left;
         }
     }
-}
-
-template<typename T>
-typename BinTree<T>::Node* BinTree<T>::insertKnotenWurzel(const T& val)
-{
-
 }
 
 template<typename T>

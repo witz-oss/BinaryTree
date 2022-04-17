@@ -1,5 +1,6 @@
 #include "Header/BinTree.h"
 #include "Header/Test.h"
+#include "Header/QuickSort.h"
 #include <vector>
 
 int main()try
@@ -20,16 +21,19 @@ int main()try
     std::cout << "binTree1.levelOrder(): " << '\n';
     binTree1.levelOrder();
 
-    std::cout << '\n' << "anzahl alle kntoten: " << binTree1.size() << " " << binTree1.AnzahlKnoten(binTree1.wurzel());
-    std::cout << '\n' << "anzahl recht: " << binTree1.AnzahlKnoten(binTree1.wurzel()->right);
-    std::cout << '\n' << "anzahl left: " << binTree1.AnzahlKnoten(binTree1.wurzel()->left);
-
-    for (const auto& item : vectorTMP)
-        binTree2.insertKnotenWurzel(item);
+    std::cout << '\n' << "anzahl alle kntoten: " << binTree1.size() << " " << binTree1.AnzahlKnoten(binTree1.getRoot());
+    std::cout << '\n' << "anzahl recht: " << binTree1.AnzahlKnoten(binTree1.getRoot()->right);
+    std::cout << '\n' << "anzahl left: " << binTree1.AnzahlKnoten(binTree1.getRoot()->left);
 
     std::cout << "\nbinTree2.inOrder(): " << '\n';
     binTree2.inOrder();
     std::cout << '\n';
+
+    std::cout << "quicksort\n";
+    std::vector<int> v1{7,4,345,43,51,364,732};
+    quickSort(v1, 0, v1.size() - 1);
+    for(const int& item : v1)
+        std::cout << item << '\n';
 
     return 0;
 }
