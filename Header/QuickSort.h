@@ -3,14 +3,11 @@
 #include <iostream>
 #include <vector>
 template<class T>
-void swap(T& a, T& b)
+void swap(T* a, T* b)
 {
-    //T tmp{ std::move(*a) };
-    //*a = std::move(*b);
-    //*b = std::move(tmp);
-    T tmp{ a };
-    a = b;
-    b = tmp;
+    T tmp{ std::move(*a) };
+    *a = std::move(*b);
+    *b = std::move(tmp);
 }
 
 //typename std::enable_if<has_const_iterator<Container>::value void>::type
@@ -29,7 +26,7 @@ void quickSort(std::vector<int>& vector, int LOW, int HIGH)
         while (vector[high] > average)
             high--;
         if (low <= high){
-            swap(vector[low], vector[high]);
+            swap(&vector[low], &vector[high]);
             low++;
             high--;
         }
